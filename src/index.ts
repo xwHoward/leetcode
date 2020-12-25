@@ -1,34 +1,57 @@
-import { removeDuplicates } from "./leetcode";
+import { removeDuplicates } from "./removeDuplicates";
+import { singleNumber } from "./singleNumber";
 
-function callFnWithParams(fn: (args: any) => any, groups: any[][]) {
-  let res = "";
+function callFnWithParams(fn: any, groups: any[][]) {
+  let res = "<h2>" + fn.problemName + "</h2>";
   groups.forEach((g) => {
-    res += "<p>" + fn.call(null, ...g) + "</p>";
+    res += "<p>" + fn.call(fn, ...g) + "</p>";
   });
   return res;
 }
 
-function component() {
+function component(innerHtml: string) {
   const element = document.createElement("div");
-  element.innerHTML = callFnWithParams(containsDuplicate, [
-    [[1, 2, 3, 1]],
-    [[1, 2, 3, 4]],
-    [[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]],
-  ]);
+  element.innerHTML = innerHtml;
   return element;
 }
 
-document.body.appendChild(component());
+const executeResults = [];
 
-// contains-duplicate
-function containsDuplicate(nums: number[]): boolean {
-  nums.sort();
-  for (let i = 0; i < nums.length - 1; i++) {
-    if (nums[i] === nums[i + 1]) {
-      return true;
-    }
-  }
-  return false;
-}
+executeResults.unshift(
+  callFnWithParams(singleNumber, [
+    [[2, 2, 1]],
+    [[4, 1, 2, 1, 2]],
+    [[1, 3, 1, -1, 3]],
+    [
+      [
+        -336,
+        513,
+        -560,
+        -481,
+        -174,
+        101,
+        -997,
+        40,
+        -527,
+        -784,
+        -283,
+        -336,
+        513,
+        -560,
+        -481,
+        -174,
+        101,
+        -997,
+        40,
+        -527,
+        -784,
+        -283,
+        354,
+      ],
+    ],
+  ])
+);
 
-// single-number
+executeResults.map(component).forEach((node) => {
+  document.body.appendChild(node);
+});

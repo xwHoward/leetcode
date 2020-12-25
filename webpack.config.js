@@ -1,15 +1,15 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: {
     index: "./src/index.ts",
   },
   plugins: [
     // new CleanWebpackPlugin(),
-    // new HtmlWebpackPlugin({
-    //   title: "LeetCode",
-    // }),
+    new HtmlWebpackPlugin({
+      title: "LeetCode",
+    }),
   ],
   devtool: "inline-source-map",
   devServer: {
@@ -24,6 +24,9 @@ module.exports = {
       },
     ],
   },
+  // node: {
+  //   fs: "empty",
+  // },
   resolve: {
     extensions: [".ts", ".js"],
   },
