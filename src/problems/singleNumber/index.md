@@ -1,11 +1,13 @@
 ---
-name: 只出现一次的数字
-useCases:
-  - input: [2, 2, 1]
-    output: 1
-  - input: [4, 1, 2, 1, 2]
-    output: 5
-strategy: toEqual
+{
+  "name": "只出现一次的数字",
+  "useCases":
+    [
+      { "input": [[2, 2, 1]], "output": 1 },
+      { "input": [[4, 1, 2, 1, 2]], "output": 4 },
+    ],
+  "validator": "equal",
+}
 ---
 
 # content
