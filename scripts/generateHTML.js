@@ -2,6 +2,32 @@ const YAML = require("yaml-front-matter");
 const fs = require("fs-extra");
 const path = require("path");
 
+const validators = {
+  /**
+   * 两个引用不同但排序后等值的数组
+   *
+   * @param {*} a
+   * @param {*} b
+   * @return {*}
+   */
+  equalSortedArray: function (a, b) {
+    return a.sort().toString() === b.sort().toString();
+  },
+  /**
+   * 两个引用不同但等值的数组
+   *
+   * @param {*} a
+   * @param {*} b
+   * @return {*}
+   */
+  equalArray: function (a, b) {
+    return a.toString() === b.toString();
+  },
+  equal: function (a, b) {
+    return a === b;
+  },
+};
+
 function generateHTML(problemPath, problemName) {
   let content;
   try {
@@ -17,31 +43,29 @@ function generateHTML(problemPath, problemName) {
   const meta = YAML.loadFront(content);
   let htmlContent = template;
   htmlContent = htmlContent.replace(/{{\s*name\s*}}/, meta.name);
+  htmlContent = htmlContent.replace(/{{\s*code\s*}}/, fn.toString());
 
   htmlContent = htmlContent.replace(
     /{{\s*inputs\s*}}/,
     meta.useCases
       .map((uc) => {
-        const res = fn(uc.input);
-        const klass = res === uc.output ? "pass" : "not-pass";
-        return `<li class="${klass}">输入：${transformJSON(
-          uc.input
-        )}<br />预期结果：${transformJSON(uc.output)}<br />输出：${res}</li>`;
+        const returnValue = fn(...uc.input);
+        const res =
+          typeof returnValue === "undefined" ? uc.input[0] : returnValue;
+        const validator =
+          validators[meta.validator] ||
+          function (a, b) {
+            return a === b;
+          };
+        const klass = validator(res, uc.output) ? "pass" : "not-pass";
+        return `<li class="${klass}">输入：<code>${uc.input
+          .map((i) => JSON.stringify(i, null, 2))
+          .join(",  ")}</code><br />预期结果：<code>${JSON.stringify(
+          uc.output
+        )}</code><br />输出：<code>${JSON.stringify(res)}</code></li>`;
       })
       .join("\n")
   );
-  function transformJSON(json) {
-    return JSON.stringify(
-      json,
-      (key, value) => {
-        if (Array.isArray(value)) {
-          return value.join(", ");
-        }
-        return value;
-      },
-      2
-    );
-  }
   return htmlContent;
 }
 
