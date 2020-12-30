@@ -113,6 +113,31 @@
   9
 ]</code><br />预期结果：<code>[1,0]</code><br />输出：<code>[1,0]</code></li>
 </ol>
+<h2>反转字符串</h2>
+<pre>function (s) {
+  for (let i = 0; i < s.length / 2; i++) {
+    const temp = s[i];
+    s[i] = s[s.length - 1 - i];
+    s[s.length - 1 - i] = temp;
+  }
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  "o",
+  "l",
+  "l",
+  "e",
+  "h"
+]</code><br />预期结果：<code>["o","l","l","e","h"]</code><br />输出：<code>["o","l","l","e","h"]</code></li>
+<li class="pass">输入：<code>[
+  "h",
+  "a",
+  "n",
+  "n",
+  "a",
+  "H"
+]</code><br />预期结果：<code>["h","a","n","n","a","H"]</code><br />输出：<code>["h","a","n","n","a","H"]</code></li>
+</ol>
 <h2>旋转图像</h2>
 <pre>function (matrix) {
   const n = matrix.length;
@@ -132,7 +157,6 @@
       matrix[j][i] = temp;
     }
   }
-  console.log(matrix);
 }</pre>
 <ol class="results">
   <li class="pass">输入：<code>[
