@@ -113,6 +113,38 @@
   9
 ]</code><br />预期结果：<code>[1,0]</code><br />输出：<code>[1,0]</code></li>
 </ol>
+<h2>整数反转</h2>
+<pre>function (x) {
+  let stack;
+  const res = [];
+  x = x.toString();
+  if (x.startsWith("-")) {
+    stack = x.substr(1).split("");
+    stack.push("-");
+  } else {
+    stack = x.split("");
+  }
+  while (stack.length) {
+    const num = stack.pop();
+    if (res.length === 0 && num === "0") {
+      continue;
+    } else {
+      res.push(num);
+    }
+    if (
+      parseInt(res.join("")) > Math.pow(2, 31) - 1 ||
+      parseInt(res.join("")) < -Math.pow(2, 31)
+    ) {
+      return 0;
+    }
+  }
+  return parseInt(res.join(""));
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>123</code><br />预期结果：<code>321</code><br />输出：<code>321</code></li>
+<li class="pass">输入：<code>-123</code><br />预期结果：<code>-321</code><br />输出：<code>-321</code></li>
+<li class="pass">输入：<code>120</code><br />预期结果：<code>21</code><br />输出：<code>21</code></li>
+</ol>
 <h2>反转字符串</h2>
 <pre>function (s) {
   for (let i = 0; i < s.length / 2; i++) {
