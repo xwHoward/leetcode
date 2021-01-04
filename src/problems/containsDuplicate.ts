@@ -1,5 +1,5 @@
 // contains-duplicate
-export function containsDuplicate(nums: number[]): boolean {
+function containsDuplicate(nums: number[]): boolean {
   nums.sort();
   for (let i = 0; i < nums.length - 1; i++) {
     if (nums[i] === nums[i + 1]) {
@@ -8,3 +8,5 @@ export function containsDuplicate(nums: number[]): boolean {
   }
   return false;
 }
+
+module.exports = containsDuplicate;

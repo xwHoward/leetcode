@@ -234,7 +234,38 @@
   1
 ]</code><br />预期结果：<code>[2,3]</code><br />输出：<code>[4,3,2,7,8,2,3,1]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: find-pivot-index</h2><h2>字符串中的第一个唯一字符</h2>
+<h2>寻找数组的中心索引</h2>
+<pre>function pivotIndex(nums) {
+  if (nums.length === 0) return -1;
+  if (nums.length === 1) return 0;
+  var sum = nums.reduce(function (acc, cur) {
+    return acc + cur;
+  }, 0);
+  var left_sum = 0;
+  for (var i = 0; i < nums.length; i++) {
+    if (left_sum === (sum - nums[i]) / 2) {
+      return i;
+    }
+    left_sum += nums[i];
+  }
+  return -1;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  1,
+  7,
+  3,
+  6,
+  5,
+  6
+]</code><br />预期结果：<code>3</code><br />输出：<code>3</code></li>
+<li class="pass">输入：<code>[
+  1,
+  2,
+  3
+]</code><br />预期结果：<code>-1</code><br />输出：<code>-1</code></li>
+</ol>
+<h2>字符串中的第一个唯一字符</h2>
 <pre>function (s) {
   s = s.split("");
   const queue = [];
@@ -252,7 +283,59 @@
   <li class="not-pass">输入：<code>"leetcode"</code><br />预期结果：<code>0</code><br />输出：<code>-1</code></li>
 <li class="not-pass">输入：<code>"loveleetcode"</code><br />预期结果：<code>2</code><br />输出：<code>-1</code></li>
 </ol>
-<h2 class="invalid">invalid problem: flood-fill</h2><h2>两个数组的交集 II</h2>
+<h2>图像渲染</h2>
+<pre>function floodFill(image, sr, sc, newColor) {
+  var originColor = image[sr][sc];
+  if (originColor === newColor) {
+    return image;
+  }
+  var queue = [[sr, sc]];
+  while (queue.length > 0) {
+    var _a = queue.shift(),
+      ri = _a[0],
+      ci = _a[1];
+    if (image[ri][ci] === originColor) {
+      image[ri][ci] = newColor;
+      // 上
+      if (ri > 0 && image[ri - 1][ci] === originColor) {
+        queue.push([ri - 1, ci]);
+      }
+      // 下
+      if (ri < image.length - 1 && image[ri + 1][ci] === originColor) {
+        queue.push([ri + 1, ci]);
+      }
+      // 左
+      if (ci - 1 >= 0 && image[ri][ci - 1] === originColor) {
+        queue.push([ri, ci - 1]);
+      }
+      // 右
+      if (ci + 1 < image[ri].length && image[ri][ci + 1] === originColor) {
+        queue.push([ri, ci + 1]);
+      }
+    }
+  }
+  return image;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    2,
+    2,
+    2
+  ],
+  [
+    2,
+    2,
+    0
+  ],
+  [
+    2,
+    0,
+    1
+  ]
+],  1,  1,  2</code><br />预期结果：<code>[[2,2,2],[2,2,0],[2,0,1]]</code><br />输出：<code>[[2,2,2],[2,2,0],[2,0,1]]</code></li>
+</ol>
+<h2>两个数组的交集 II</h2>
 <pre>function (nums1, nums2) {
   let short, long;
   if (nums1.length <= nums2.length) {
@@ -301,7 +384,58 @@
   4
 ]</code><br />预期结果：<code>[4,9]</code><br />输出：<code>[4,9]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: keys-and-rooms</h2><h2>拥有最多糖果的孩子</h2>
+<h2>钥匙和房间</h2>
+<pre>function canVisitAllRooms(rooms) {
+  var res = rooms.map(function (r) {
+    return false;
+  });
+  var stack = [];
+  var visited = new Set();
+  stack.push(0);
+  while (stack.length > 0) {
+    for (var i = 0, length_1 = stack.length; i < length_1; i++) {
+      var roomIndex = stack.pop();
+      visited.add(roomIndex);
+      res[roomIndex] = true;
+      for (var _i = 0, _a = rooms[roomIndex]; _i < _a.length; _i++) {
+        var key = _a[_i];
+        if (!visited.has(key)) {
+          stack.push(key);
+        }
+      }
+    }
+  }
+  return res.every(function (r) {
+    return r === true;
+  });
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    1
+  ],
+  [
+    2
+  ],
+  [
+    3
+  ],
+  []
+]</code><br />预期结果：<code>true</code><br />输出：<code>true</code></li>
+<li class="pass">输入：<code>[
+  1,
+  3
+],  [
+  3,
+  0,
+  1
+],  [
+  2
+],  [
+  0
+]</code><br />预期结果：<code>false</code><br />输出：<code>false</code></li>
+</ol>
+<h2>拥有最多糖果的孩子</h2>
 <pre>function (candies, extraCandies) {
   var max = candies.reduce(function (prev, curr) {
     return prev > curr ? prev : curr;
@@ -331,7 +465,89 @@
   12
 ],  10</code><br />预期结果：<code>[true,false,true]</code><br />输出：<code>[true,false,true]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: merge-intervals</h2><h2 class="invalid">invalid problem: min-stack</h2><h2>移动零</h2>
+<h2>合并区间</h2>
+<pre>function merge(intervals) {
+  intervals.sort(function (a, b) {
+    return a[0] - b[0];
+  });
+  var res = [];
+  for (var _i = 0, intervals_1 = intervals; _i < intervals_1.length; _i++) {
+    var intv = intervals_1[_i];
+    if (res.length === 0) {
+      res.push(intv);
+    } else {
+      var top_1 = res[res.length - 1];
+      if (intv[0] > top_1[1]) {
+        res.push(intv);
+      } else {
+        top_1[1] = top_1[1] < intv[1] ? intv[1] : top_1[1];
+      }
+    }
+  }
+  return res;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    1,
+    6
+  ],
+  [
+    2,
+    6
+  ],
+  [
+    8,
+    10
+  ],
+  [
+    15,
+    18
+  ]
+]</code><br />预期结果：<code>[[1,6],[8,10],[15,18]]</code><br />输出：<code>[[1,6],[8,10],[15,18]]</code></li>
+<li class="pass">输入：<code>[
+  [
+    1,
+    5
+  ],
+  [
+    4,
+    5
+  ]
+]</code><br />预期结果：<code>[[1,5]]</code><br />输出：<code>[[1,5]]</code></li>
+</ol>
+<h2>最小栈</h2>
+<pre>function MinStack() {
+    this.stack = [];
+  }</pre>
+<ol class="results">
+  <li class="not-pass">输入：<code>[
+  "MinStack",
+  "push",
+  "push",
+  "push",
+  "getMin",
+  "pop",
+  "top",
+  "getMin"
+],  [
+  [],
+  [
+    -2
+  ],
+  [
+    0
+  ],
+  [
+    -3
+  ],
+  [],
+  [],
+  [],
+  []
+]</code><br />预期结果：<code>[null,null,null,null,-3,null,0,-2]</code><br />输出：<code>["MinStack","push","push","push","getMin","pop","top","getMin"]</code></li>
+</ol>
+<h2>移动零</h2>
 <pre>function (nums) {
   let count = 0;
   let i = 0;
@@ -354,7 +570,240 @@
   0
 ]</code><br />预期结果：<code>[1,3,12,0,0]</code><br />输出：<code>[1,3,12,0,0]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: number-of-islands</h2><h2 class="invalid">invalid problem: open-the-lock</h2><h2 class="invalid">invalid problem: perfect-squares</h2><h2>加一</h2>
+<h2>岛屿数量</h2>
+<pre>function numIslands(grid) {
+  var res = 0;
+  var DFS = function (_a) {
+    var y = _a[0],
+      x = _a[1];
+    console.log("DFS", x, y, grid[y][x]);
+    grid[y][x] = "0";
+    // 上
+    if (y > 0 && grid[y - 1][x] === "1") {
+      DFS([y - 1, x]);
+    }
+    // 下
+    if (y < grid.length - 1 && grid[y + 1][x] === "1") {
+      DFS([y + 1, x]);
+    }
+    // 左
+    if (x > 0 && grid[y][x - 1] === "1") {
+      DFS([y, x - 1]);
+    }
+    // 右
+    if (x < grid[y].length - 1 && grid[y][x + 1] === "1") {
+      DFS([y, x + 1]);
+    }
+  };
+  for (var y = 0; y < grid.length; y++) {
+    //   y: 列序号
+    var col = grid[y];
+    for (var x = 0; x < col.length; x++) {
+      // x: 行序号
+      var el = col[x];
+      if (el === "1") {
+        console.log("loop", x, y, el);
+        res++;
+        DFS([y, x]);
+      }
+    }
+  }
+  return res;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ]
+]</code><br />预期结果：<code>1</code><br />输出：<code>1</code></li>
+<li class="pass">输入：<code>[
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  [
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ]
+]</code><br />预期结果：<code>3</code><br />输出：<code>3</code></li>
+</ol>
+<h2>打开转盘锁</h2>
+<pre>function openLock(deadends, target) {
+  var tried = new Set();
+  var queue = [];
+  var depth = 0;
+  queue.push("0000");
+  var prevMap = {
+      0: "9",
+      1: "0",
+      2: "1",
+      3: "2",
+      4: "3",
+      5: "4",
+      6: "5",
+      7: "6",
+      8: "7",
+      9: "8",
+    },
+    nextMap = {
+      0: "1",
+      1: "2",
+      2: "3",
+      3: "4",
+      4: "5",
+      5: "6",
+      6: "7",
+      7: "8",
+      8: "9",
+      9: "0",
+    };
+  while (queue.length > 0) {
+    for (var i = 0, length_1 = queue.length; i < length_1; i++) {
+      var code = queue[0];
+      if (code === target) {
+        return depth;
+      }
+      if (deadends.indexOf(code) < 0 && !tried.has(code)) {
+        // 未锁定，未试
+        tried.add(code);
+        // 计算当前密码相邻的8种密码
+        var bits = code.split("");
+        for (var i_1 = 0; i_1 < bits.length; i_1++) {
+          var bit = bits[i_1];
+          var bits_copy = JSON.parse(JSON.stringify(bits));
+          bits_copy[i_1] = prevMap[bit];
+          queue.push(bits_copy.join(""));
+          bits_copy[i_1] = nextMap[bit];
+          queue.push(bits_copy.join(""));
+        }
+      }
+      queue.shift();
+    }
+    depth++;
+  }
+  return -1;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  "0201",
+  "0101",
+  "0102",
+  "1212",
+  "2002"
+],  "0202"</code><br />预期结果：<code>6</code><br />输出：<code>6</code></li>
+<li class="pass">输入：<code>[
+  "8888"
+],  "0009"</code><br />预期结果：<code>1</code><br />输出：<code>1</code></li>
+<li class="pass">输入：<code>[
+  "8887",
+  "8889",
+  "8878",
+  "8898",
+  "8788",
+  "8988",
+  "7888",
+  "9888"
+],  "8888"</code><br />预期结果：<code>-1</code><br />输出：<code>-1</code></li>
+<li class="pass">输入：<code>[
+  "0000"
+],  "8888"</code><br />预期结果：<code>-1</code><br />输出：<code>-1</code></li>
+</ol>
+<h2>完全平方数</h2>
+<pre>function numSquares(n) {
+  var e_1, _a;
+  var queue = [n];
+  var level = 0;
+  var squares = [];
+  var i = 1;
+  while (i * i <= n) {
+    squares.push(i * i);
+    i++;
+  }
+  while (queue.length > 0) {
+    var nextLevel = new Set();
+    level++;
+    try {
+      for (
+        var queue_1 = __values(queue), queue_1_1 = queue_1.next();
+        !queue_1_1.done;
+        queue_1_1 = queue_1.next()
+      ) {
+        var m = queue_1_1.value;
+        for (var k = squares.length - 1; k >= 0; k--) {
+          var squareNum = squares[k];
+          if (squareNum === m) {
+            return level;
+          } else if (squareNum > m) {
+            continue;
+          } else {
+            nextLevel.add(m - squareNum);
+          }
+        }
+      }
+    } catch (e_1_1) {
+      e_1 = { error: e_1_1 };
+    } finally {
+      try {
+        if (queue_1_1 && !queue_1_1.done && (_a = queue_1.return))
+          _a.call(queue_1);
+      } finally {
+        if (e_1) throw e_1.error;
+      }
+    }
+    queue = Array.from(nextLevel.values());
+  }
+  return -1;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>12</code><br />预期结果：<code>3</code><br />输出：<code>3</code></li>
+<li class="pass">输入：<code>13</code><br />预期结果：<code>2</code><br />输出：<code>2</code></li>
+</ol>
+<h2>加一</h2>
 <pre>function (digits) {
   const res = [...digits];
   let index = res.length - 1;
@@ -515,7 +964,71 @@
   ]
 ]</code><br />预期结果：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code><br />输出：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: rotate-matrix-lcci</h2><h2 class="invalid">invalid problem: search-insert-position</h2><h2>只出现一次的数字</h2>
+<h2>旋转矩阵</h2>
+<pre>function rotate(matrix) {
+  // LC解答： 先水平中线反转，再主对角线翻转
+  var n = matrix.length;
+  //   上下翻转
+  for (var ri = 0; ri < Math.floor(n / 2); ri++) {
+    var tempRow = matrix[ri];
+    matrix[ri] = matrix[n - 1 - ri];
+    matrix[n - 1 - ri] = tempRow;
+  }
+  //   主对角线翻转
+  for (var ri = 0; ri < n; ri++) {
+    for (var ci = 0; ci < ri; ci++) {
+      var temp = matrix[ri][ci];
+      matrix[ri][ci] = matrix[ci][ri];
+      matrix[ci][ri] = temp;
+    }
+  }
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    7,
+    4,
+    1
+  ],
+  [
+    8,
+    5,
+    2
+  ],
+  [
+    9,
+    6,
+    3
+  ]
+]</code><br />预期结果：<code>[[7,4,1],[8,5,2],[9,6,3]]</code><br />输出：<code>[[7,4,1],[8,5,2],[9,6,3]]</code></li>
+<li class="pass">输入：<code>[
+  [
+    15,
+    13,
+    2,
+    5
+  ],
+  [
+    14,
+    3,
+    4,
+    1
+  ],
+  [
+    12,
+    6,
+    8,
+    9
+  ],
+  [
+    16,
+    7,
+    10,
+    11
+  ]
+]</code><br />预期结果：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code><br />输出：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code></li>
+</ol>
+<h2 class="invalid">invalid problem: search-insert-position</h2><h2>只出现一次的数字</h2>
 <pre>function singleNumber(nums) {
   nums.sort((a, b) => a - b);
   if (nums.length === 1) {

@@ -1,16 +1,13 @@
-function floodFill(
-  image: number[][],
-  sr: number,
-  sc: number,
-  newColor: number
-): number[][] {
-  const originColor = image[sr][sc];
+function floodFill(image, sr, sc, newColor) {
+  var originColor = image[sr][sc];
   if (originColor === newColor) {
     return image;
   }
-  const queue = [[sr, sc]];
+  var queue = [[sr, sc]];
   while (queue.length > 0) {
-    const [ri, ci] = queue.shift() as number[];
+    var _a = queue.shift(),
+      ri = _a[0],
+      ci = _a[1];
     if (image[ri][ci] === originColor) {
       image[ri][ci] = newColor;
       // 上
@@ -33,3 +30,5 @@ function floodFill(
   }
   return image;
 }
+
+module.exports = floodFill;

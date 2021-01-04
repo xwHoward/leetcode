@@ -1,8 +1,8 @@
-function searchInsert(nums: number[], target: number): number {
-  let left = 0,
+function searchInsert(nums, target) {
+  var left = 0,
     right = nums.length - 1;
   while (left <= right) {
-    const mid = left + Math.floor((right - left) / 2);
+    var mid = left + Math.floor((right - left) / 2);
     if (nums[mid] < target) {
       left = mid + 1;
     } else {
@@ -11,3 +11,5 @@ function searchInsert(nums: number[], target: number): number {
   }
   return left;
 }
+
+module.exports = searchInsert;
