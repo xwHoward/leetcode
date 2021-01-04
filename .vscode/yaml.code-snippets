@@ -12,4 +12,26 @@
   //     "body": ["console.log('$1');", "$2"],
   //     "description": "Log output to console"
   //   }
+  "Init common yaml structure": {
+    "prefix": "yaml-init",
+    "body": [
+      "---",
+      "{",
+      "    \"name\": \"$1\",",
+      "    \"useCases\": [",
+      "        {",
+      "            \"input\": [$2],",
+      "            \"output\": $3",
+      "        }",
+      "    ],",
+      "    \"validator\": \"${4:equal}\"",
+      "}",
+      "---",
+      "",
+      "# content",
+      "",
+      "$5"
+    ],
+    "description": "none"
+  }
 }
