@@ -6,7 +6,7 @@
       { "input": ["3[a]2[bc]"], "output": "aaabcbc" },
       { "input": ["3[a2[c]]"], "output": "accaccacc" },
       { "input": ["2[abc]3[cd]ef"], "output": "abcabccdcdcdef" },
-      { "input": ["abc3[cd]xyz"], "output": "abcabccdcdcdef" },
+      { "input": ["abc3[cd]xyz"], "output": "abccdcdcdxyz" },
     ],
   "validator": "equal",
 }

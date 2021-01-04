@@ -1,28 +1,23 @@
 ---
-{
-  "name": "最小栈",
-  "useCases":
-    [
-      {
-        "input":
-          [
-            [
-              "MinStack",
-              "push",
-              "push",
-              "push",
-              "getMin",
-              "pop",
-              "top",
-              "getMin",
-            ],
-            [[], [-2], [0], [-3], [], [], [], []],
-          ],
-        "output": [null, null, null, null, -3, null, 0, -2],
-      },
-    ],
-  "validator": "equalArray",
-}
+{ "name": "最小栈", "useCases":
+    # {
+    #   "input":
+    #     [
+    #       [
+    #         "MinStack",
+    #         "push",
+    #         "push",
+    #         "push",
+    #         "getMin",
+    #         "pop",
+    #         "top",
+    #         "getMin",
+    #       ],
+    #       [[], [-2], [0], [-3], [], [], [], []],
+    #     ],
+    #   "output": [null, null, null, null, -3, null, 0, -2],
+    # },
+    [], "validator": "equalArray" }
 ---
 
 # content

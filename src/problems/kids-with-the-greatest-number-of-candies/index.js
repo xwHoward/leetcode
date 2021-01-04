@@ -8,7 +8,7 @@ var kidsWithCandies = function (candies, extraCandies) {
     return prev > curr ? prev : curr;
   }, 0);
   return candies.map(function (c) {
-    return max - c < extraCandies;
+    return max - c <= extraCandies;
   });
 };
 

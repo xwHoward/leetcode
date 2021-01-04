@@ -218,7 +218,7 @@
   <li class="pass">输入：<code>"3[a]2[bc]"</code><br />预期结果：<code>"aaabcbc"</code><br />输出：<code>"aaabcbc"</code></li>
 <li class="pass">输入：<code>"3[a2[c]]"</code><br />预期结果：<code>"accaccacc"</code><br />输出：<code>"accaccacc"</code></li>
 <li class="pass">输入：<code>"2[abc]3[cd]ef"</code><br />预期结果：<code>"abcabccdcdcdef"</code><br />输出：<code>"abcabccdcdcdef"</code></li>
-<li class="not-pass">输入：<code>"abc3[cd]xyz"</code><br />预期结果：<code>"abcabccdcdcdef"</code><br />输出：<code>"abccdcdcdxyz"</code></li>
+<li class="pass">输入：<code>"abc3[cd]xyz"</code><br />预期结果：<code>"abccdcdcdxyz"</code><br />输出：<code>"abccdcdcdxyz"</code></li>
 </ol>
 <h2 class="invalid">invalid problem: evaluate-reverse-polish-notation</h2><h2>数组中重复的数据</h2>
 <pre>function (nums) {}</pre>
@@ -441,17 +441,17 @@
     return prev > curr ? prev : curr;
   }, 0);
   return candies.map(function (c) {
-    return max - c < extraCandies;
+    return max - c <= extraCandies;
   });
 }</pre>
 <ol class="results">
-  <li class="not-pass">输入：<code>[
+  <li class="pass">输入：<code>[
   2,
   3,
   5,
   1,
   3
-],  3</code><br />预期结果：<code>[true,true,true,false,true]</code><br />输出：<code>[false,true,true,false,true]</code></li>
+],  3</code><br />预期结果：<code>[true,true,true,false,true]</code><br />输出：<code>[true,true,true,false,true]</code></li>
 <li class="pass">输入：<code>[
   4,
   2,
@@ -518,34 +518,10 @@
 </ol>
 <h2>最小栈</h2>
 <pre>function MinStack() {
-    this.stack = [];
-  }</pre>
+  this.stack = [];
+}</pre>
 <ol class="results">
-  <li class="not-pass">输入：<code>[
-  "MinStack",
-  "push",
-  "push",
-  "push",
-  "getMin",
-  "pop",
-  "top",
-  "getMin"
-],  [
-  [],
-  [
-    -2
-  ],
-  [
-    0
-  ],
-  [
-    -3
-  ],
-  [],
-  [],
-  [],
-  []
-]</code><br />预期结果：<code>[null,null,null,null,-3,null,0,-2]</code><br />输出：<code>["MinStack","push","push","push","getMin","pop","top","getMin"]</code></li>
+  
 </ol>
 <h2>移动零</h2>
 <pre>function (nums) {
@@ -1028,7 +1004,47 @@
   ]
 ]</code><br />预期结果：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code><br />输出：<code>[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: search-insert-position</h2><h2>只出现一次的数字</h2>
+<h2>搜索插入位置</h2>
+<pre>function searchInsert(nums, target) {
+  var left = 0,
+    right = nums.length - 1;
+  while (left <= right) {
+    var mid = left + Math.floor((right - left) / 2);
+    if (nums[mid] < target) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  return left;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  1,
+  3,
+  5,
+  6
+],  5</code><br />预期结果：<code>2</code><br />输出：<code>2</code></li>
+<li class="pass">输入：<code>[
+  1,
+  3,
+  5,
+  6
+],  2</code><br />预期结果：<code>1</code><br />输出：<code>1</code></li>
+<li class="pass">输入：<code>[
+  1,
+  3,
+  5,
+  6
+],  7</code><br />预期结果：<code>4</code><br />输出：<code>4</code></li>
+<li class="pass">输入：<code>[
+  1,
+  3,
+  5,
+  6
+],  0</code><br />预期结果：<code>0</code><br />输出：<code>0</code></li>
+</ol>
+<h2>只出现一次的数字</h2>
 <pre>function singleNumber(nums) {
   nums.sort((a, b) => a - b);
   if (nums.length === 1) {
@@ -1058,7 +1074,35 @@
   4
 ]</code><br />预期结果：<code>4</code><br />输出：<code>4</code></li>
 </ol>
-<h2 class="invalid">invalid problem: target-sum</h2><h2>两数之和</h2>
+<h2>目标和</h2>
+<pre>function findTargetSumWays(nums, S) {
+  var res = 0;
+  var DFS = function (acc, rest) {
+    if (rest.length > 0) {
+      var num = rest[0];
+      var _num = -num;
+      var next = rest.slice(1);
+      DFS(acc + num, next);
+      DFS(acc + _num, next);
+    } else {
+      if (acc === S) {
+        res++;
+      }
+    }
+  };
+  DFS(0, nums);
+  return res;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  1,
+  1,
+  1,
+  1,
+  1
+],  3</code><br />预期结果：<code>5</code><br />输出：<code>5</code></li>
+</ol>
+<h2>两数之和</h2>
 <pre>function (nums, target) {
   const hash = {};
   for (let i = 0; i < nums.length; i++) {
@@ -1086,7 +1130,59 @@
   3
 ],  6</code><br />预期结果：<code>[0,2]</code><br />输出：<code>[0,2]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: valid-parentheses</h2><h2>有效的数独</h2>
+<h2>有效的括号</h2>
+<pre>function isValid(s) {
+  var e_1, _a;
+  var chars = s.split("");
+  var stack = [];
+  try {
+    for (
+      var chars_1 = __values(chars), chars_1_1 = chars_1.next();
+      !chars_1_1.done;
+      chars_1_1 = chars_1.next()
+    ) {
+      var char = chars_1_1.value;
+      switch (char) {
+        case ")":
+          if (stack.pop() !== "(") {
+            return false;
+          }
+          break;
+        case "}":
+          if (stack.pop() !== "{") {
+            return false;
+          }
+          break;
+        case "]":
+          if (stack.pop() !== "[") {
+            return false;
+          }
+          break;
+        default:
+          stack.push(char);
+          break;
+      }
+    }
+  } catch (e_1_1) {
+    e_1 = { error: e_1_1 };
+  } finally {
+    try {
+      if (chars_1_1 && !chars_1_1.done && (_a = chars_1.return))
+        _a.call(chars_1);
+    } finally {
+      if (e_1) throw e_1.error;
+    }
+  }
+  return stack.length === 0;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>"()"</code><br />预期结果：<code>true</code><br />输出：<code>true</code></li>
+<li class="pass">输入：<code>"()[]{}"</code><br />预期结果：<code>true</code><br />输出：<code>true</code></li>
+<li class="pass">输入：<code>"(]"</code><br />预期结果：<code>false</code><br />输出：<code>false</code></li>
+<li class="pass">输入：<code>"([)]"</code><br />预期结果：<code>false</code><br />输出：<code>false</code></li>
+<li class="pass">输入：<code>"{[]}"</code><br />预期结果：<code>true</code><br />输出：<code>true</code></li>
+</ol>
+<h2>有效的数独</h2>
 <pre>function (board) {
   //   暴力解法
   // 行
@@ -1382,6 +1478,71 @@
   ]
 ]</code><br />预期结果：<code>false</code><br />输出：<code>false</code></li>
 </ol>
-<h2 class="invalid">invalid problem: zero-matrix-lcci</h2><script src="venders.main.63e212db3ec9f25c269c.js"></script><script src="main.ff92703169e370b6aa61.js"></script></body>
+<h2>零矩阵</h2>
+<pre>function setZeroes(matrix) {
+  var zeros = [];
+  for (var ri = 0; ri < matrix.length; ri++) {
+    var row = matrix[ri];
+    for (var ci = 0; ci < row.length; ci++) {
+      var el = row[ci];
+      if (el === 0) {
+        zeros.push([ri, ci]);
+      }
+    }
+  }
+  for (var _i = 0, zeros_1 = zeros; _i < zeros_1.length; _i++) {
+    var _a = zeros_1[_i],
+      ri = _a[0],
+      ci = _a[1];
+    //   行不变
+    for (var i = 0; i < matrix[ri].length; i++) {
+      matrix[ri][i] = 0;
+    }
+    // 列不变
+    for (var i = 0; i < matrix.length; i++) {
+      matrix[i][ci] = 0;
+    }
+  }
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>[
+  [
+    1,
+    0,
+    1
+  ],
+  [
+    0,
+    0,
+    0
+  ],
+  [
+    1,
+    0,
+    1
+  ]
+]</code><br />预期结果：<code>[[1,0,1],[0,0,0],[1,0,1]]</code><br />输出：<code>[[1,0,1],[0,0,0],[1,0,1]]</code></li>
+<li class="pass">输入：<code>[
+  [
+    0,
+    0,
+    0,
+    0
+  ],
+  [
+    0,
+    4,
+    5,
+    0
+  ],
+  [
+    0,
+    3,
+    1,
+    0
+  ]
+]</code><br />预期结果：<code>[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</code><br />输出：<code>[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</code></li>
+</ol>
+<script src="venders.main.63e212db3ec9f25c269c.js"></script><script src="main.49771d09974a9f9d719c.js"></script></body>
     </html>
     

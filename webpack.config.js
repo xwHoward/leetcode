@@ -27,6 +27,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: "development",
+  entry: "./src/index.js",
   devServer: {
     contentBase: "./dist",
   },
@@ -107,22 +108,3 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
 };
-
-// module.exports = {
-//   entry: "./src/index.js",
-//   mode: "development",
-//   devtool: "inline-source-map",
-//   devServer: {
-//     contentBase: "./dist",
-//   },
-//   plugins: [
-//     new CleanWebpackPlugin(),
-//     new HtmlWebpackPlugin({
-//       title: "Leetcode Playground",
-//     }),
-//   ],
-//   output: {
-//     filename: "main.[contenthash].js",
-//     path: path.resolve(__dirname, "dist"),
-//   },
-// };
