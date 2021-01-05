@@ -28,7 +28,6 @@ function numIslands(grid) {
       // x: 行序号
       var el = col[x];
       if (el === "1") {
-        console.log("loop", x, y, el);
         res++;
         DFS([y, x]);
       }

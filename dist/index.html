@@ -147,6 +147,18 @@
 <ol class="results">
   
 </ol>
+<h2>外观数列</h2>
+<pre>function (n) {
+  // 递归
+  if (n === 1) {
+    return "1";
+  }
+  return desc(countAndSay(n - 1));
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>1</code><br />预期结果：<code>"1"</code><br />输出：<code>"1"</code></li>
+<li class="pass">输入：<code>4</code><br />预期结果：<code>"1211"</code><br />输出：<code>"1211"</code></li>
+</ol>
 <h2>每日温度</h2>
 <pre>function dailyTemperatures(T) {
   var stack = [];
@@ -344,6 +356,32 @@
     1
   ]
 ],  1,  1,  2</code><br />预期结果：<code>[[2,2,2],[2,2,0],[2,0,1]]</code><br />输出：<code>[[2,2,2],[2,2,0],[2,0,1]]</code></li>
+</ol>
+<h2>实现 strStr()</h2>
+<pre>function (haystack, needle) {
+  // 双指针
+  if (needle === "") {
+    return 0;
+  }
+  let i = 0,
+    j = 0;
+  while (i < haystack.length + 1) {
+    if (haystack.charAt(i + j) === needle.charAt(j)) {
+      j++;
+      if (j === needle.length) {
+        return i;
+      }
+    } else {
+      j = 0;
+      i++;
+    }
+  }
+
+  return -1;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>"hello",  "ll"</code><br />预期结果：<code>2</code><br />输出：<code>2</code></li>
+<li class="pass">输入：<code>"aaaaa",  "bba"</code><br />预期结果：<code>-1</code><br />输出：<code>-1</code></li>
 </ol>
 <h2>两个数组的交集 II</h2>
 <pre>function (nums1, nums2) {
@@ -587,7 +625,6 @@
       // x: 行序号
       var el = col[x];
       if (el === "1") {
-        console.log("loop", x, y, el);
         res++;
         DFS([y, x]);
       }
@@ -1083,6 +1120,40 @@
   4
 ]</code><br />预期结果：<code>4</code><br />输出：<code>4</code></li>
 </ol>
+<h2>字符串转换整数 (atoi)</h2>
+<pre>function (s) {
+  //   s = s.replace(/^\s*/, "");
+  //   if (s === "") {
+  //     // 字符串为空或字符串仅包含空白字符
+  //     return 0;
+  //   }
+  //   const reg = /^(\+[0-9]|-[0-9]|[0-9])[0-9]*/;
+  //   const num = reg.exec(s);
+  //   if (num) {
+  //     const res = parseInt(num[0]);
+  //     if (res > Math.pow(2, 31) - 1) {
+  //       return Math.pow(2, 31) - 1;
+  //     } else if (res < -Math.pow(2, 31)) {
+  //       return -Math.pow(2, 31);
+  //     }
+  //     return res;
+  //   }
+  //   return 0;
+
+  // 自动机解法
+  const auto = new Automaton();
+  for (let i = 0; i < s.length; i++) {
+    auto.get(s.charAt(i));
+  }
+  return auto.negative ? -auto.ans : auto.ans;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>"42"</code><br />预期结果：<code>42</code><br />输出：<code>42</code></li>
+<li class="pass">输入：<code>"   -42"</code><br />预期结果：<code>-42</code><br />输出：<code>-42</code></li>
+<li class="pass">输入：<code>"4193 with words"</code><br />预期结果：<code>4193</code><br />输出：<code>4193</code></li>
+<li class="pass">输入：<code>"words and 987"</code><br />预期结果：<code>0</code><br />输出：<code>0</code></li>
+<li class="pass">输入：<code>"-91283472332"</code><br />预期结果：<code>-2147483648</code><br />输出：<code>-2147483648</code></li>
+</ol>
 <h2>目标和</h2>
 <pre>function findTargetSumWays(nums, S) {
   var res = 0;
@@ -1138,6 +1209,23 @@
   2,
   3
 ],  6</code><br />预期结果：<code>[0,2]</code><br />输出：<code>[0,2]</code></li>
+</ol>
+<h2>验证回文串</h2>
+<pre>function (s) {
+  s = s
+    .split("")
+    .filter((char) => /[a-z0-9A-Z]/.test(char))
+    .map((char) => char.toLowerCase());
+  for (let i = 0; i < s.length / 2; i++) {
+    if (s[i] !== s[s.length - 1 - i]) {
+      return false;
+    }
+  }
+  return true;
+}</pre>
+<ol class="results">
+  <li class="pass">输入：<code>"A man, a plan, a canal: Panama"</code><br />预期结果：<code>true</code><br />输出：<code>true</code></li>
+<li class="pass">输入：<code>"race a car"</code><br />预期结果：<code>false</code><br />输出：<code>false</code></li>
 </ol>
 <h2>有效的括号</h2>
 <pre>function isValid(s) {
