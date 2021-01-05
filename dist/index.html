@@ -5,7 +5,34 @@
       <title>Leetcode Playground</title>
     </head>
     <body>
-    <h1>Leetcode Playground</h1><h2>01 矩阵</h2>
+    <h1>Leetcode Playground</h1><h2 class="invalid">invalid problem: algorithms</h2><h2>二进制手表</h2>
+<pre>function readBinaryWatch(num) {
+  var res = [];
+  var a = 0x1111,
+    b = 0x111111;
+  //   if(time){
+  //       res.push(time);
+  //   }
+  return res;
+}</pre>
+<ol class="results">
+  <li class="not-pass">输入：<code>1</code><br />预期结果：<code>["1:00","2:00","4:00","8:00","0:01","0:02","0:04","0:08","0:16","0:32"]</code><br />输出：<code>[]</code></li>
+</ol>
+<h2 class="invalid">invalid problem: evaluate-reverse-polish-notation</h2><h2>数组中重复的数据</h2>
+<pre>function (nums) {}</pre>
+<ol class="results">
+  <li class="not-pass">输入：<code>[
+  4,
+  3,
+  2,
+  7,
+  8,
+  2,
+  3,
+  1
+]</code><br />预期结果：<code>[2,3]</code><br />输出：<code>[4,3,2,7,8,2,3,1]</code></li>
+</ol>
+<h2>01 矩阵</h2>
 <pre>function updateMatrix(matrix) {
   var BFS = function (root) {
     var depth = 0;
@@ -88,7 +115,7 @@
   ]
 ]</code><br />预期结果：<code>[[0,0,0],[0,1,0],[1,2,1]]</code><br />输出：<code>[[0,0,0],[0,1,0],[1,2,1]]</code></li>
 </ol>
-<h2 class="invalid">invalid problem: algorithms</h2><h2>二叉树的中序遍历</h2>
+<h2>二叉树的中序遍历</h2>
 <pre>function inorderTraversal(root) {
   var res = [];
   var stack = [];
@@ -106,19 +133,6 @@
 }</pre>
 <ol class="results">
   
-</ol>
-<h2>二进制手表</h2>
-<pre>function readBinaryWatch(num) {
-  var res = [];
-  var a = 0x1111,
-    b = 0x111111;
-  //   if(time){
-  //       res.push(time);
-  //   }
-  return res;
-}</pre>
-<ol class="results">
-  <li class="not-pass">输入：<code>1</code><br />预期结果：<code>["1:00","2:00","4:00","8:00","0:01","0:02","0:04","0:08","0:16","0:32"]</code><br />输出：<code>[]</code></li>
 </ol>
 <h2>克隆图</h2>
 <pre>function cloneGraph(node) {
@@ -220,20 +234,6 @@
 <li class="pass">输入：<code>"2[abc]3[cd]ef"</code><br />预期结果：<code>"abcabccdcdcdef"</code><br />输出：<code>"abcabccdcdcdef"</code></li>
 <li class="pass">输入：<code>"abc3[cd]xyz"</code><br />预期结果：<code>"abccdcdcdxyz"</code><br />输出：<code>"abccdcdcdxyz"</code></li>
 </ol>
-<h2 class="invalid">invalid problem: evaluate-reverse-polish-notation</h2><h2>数组中重复的数据</h2>
-<pre>function (nums) {}</pre>
-<ol class="results">
-  <li class="not-pass">输入：<code>[
-  4,
-  3,
-  2,
-  7,
-  8,
-  2,
-  3,
-  1
-]</code><br />预期结果：<code>[2,3]</code><br />输出：<code>[4,3,2,7,8,2,3,1]</code></li>
-</ol>
 <h2>寻找数组的中心索引</h2>
 <pre>function pivotIndex(nums) {
   if (nums.length === 0) return -1;
@@ -267,21 +267,31 @@
 </ol>
 <h2>字符串中的第一个唯一字符</h2>
 <pre>function (s) {
-  s = s.split("");
-  const queue = [];
+  if (s === "") {
+    return -1;
+  }
   const hash = {};
   for (let i = 0; i < s.length; i++) {
-    if (typeof hash[s[i] === "undefined"]) {
-      queue.push(i);
+    if (typeof hash[s.charAt(i)] === "undefined") {
+      hash[s.charAt(i)] = [i];
     } else {
-      hash[s[i]] = i;
+      hash[s.charAt(i)].push(i);
     }
   }
-  return -1;
+  let min = s.length;
+  for (const key in hash) {
+    if (Object.hasOwnProperty.call(hash, key)) {
+      const pos = hash[key];
+      if (pos.length === 1 && min > pos[0]) {
+        min = pos[0];
+      }
+    }
+  }
+  return min === s.length ? -1 : min;
 }</pre>
 <ol class="results">
-  <li class="not-pass">输入：<code>"leetcode"</code><br />预期结果：<code>0</code><br />输出：<code>-1</code></li>
-<li class="not-pass">输入：<code>"loveleetcode"</code><br />预期结果：<code>2</code><br />输出：<code>-1</code></li>
+  <li class="pass">输入：<code>"leetcode"</code><br />预期结果：<code>0</code><br />输出：<code>0</code></li>
+<li class="pass">输入：<code>"loveleetcode"</code><br />预期结果：<code>2</code><br />输出：<code>2</code></li>
 </ol>
 <h2>图像渲染</h2>
 <pre>function floodFill(image, sr, sc, newColor) {
@@ -552,7 +562,6 @@
   var DFS = function (_a) {
     var y = _a[0],
       x = _a[1];
-    console.log("DFS", x, y, grid[y][x]);
     grid[y][x] = "0";
     // 上
     if (y > 0 && grid[y - 1][x] === "1") {
@@ -1543,6 +1552,6 @@
   ]
 ]</code><br />预期结果：<code>[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</code><br />输出：<code>[[0,0,0,0],[0,4,5,0],[0,3,1,0]]</code></li>
 </ol>
-<script src="venders.main.63e212db3ec9f25c269c.js"></script><script src="main.49771d09974a9f9d719c.js"></script></body>
+<script src="venders.main.63e212db3ec9f25c269c.js"></script><script src="main.c5ad826503c71b3e95db.js"></script></body>
     </html>
     

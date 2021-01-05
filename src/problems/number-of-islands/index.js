@@ -3,7 +3,6 @@ function numIslands(grid) {
   var DFS = function (_a) {
     var y = _a[0],
       x = _a[1];
-    console.log("DFS", x, y, grid[y][x]);
     grid[y][x] = "0";
     // 上
     if (y > 0 && grid[y - 1][x] === "1") {

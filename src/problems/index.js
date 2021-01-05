@@ -15,9 +15,17 @@ function generate() {
     <body>
     <h1>Leetcode Playground</h1>`;
   const directories = paths.filter((r) => r.isDirectory());
+  const valids = [],
+    invalids = [];
   directories.forEach((d) => {
-    htmlContent += generateHTML(path.resolve(__dirname, d.name), d.name);
+    const res = generateHTML(path.resolve(__dirname, d.name), d.name);
+    if (/(invalid)|(not-pass)/g.test(res)) {
+      invalids.push(res);
+    } else {
+      valids.push(res);
+    }
   });
+  htmlContent += invalids.join("") + valids.join("");
   htmlContent += `</body>
     </html>
     `;
