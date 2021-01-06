@@ -246,6 +246,14 @@
 <li class="pass">输入：<code>"2[abc]3[cd]ef"</code><br />预期结果：<code>"abcabccdcdcdef"</code><br />输出：<code>"abcabccdcdcdef"</code></li>
 <li class="pass">输入：<code>"abc3[cd]xyz"</code><br />预期结果：<code>"abccdcdcdxyz"</code><br />输出：<code>"abccdcdcdxyz"</code></li>
 </ol>
+<h2>删除链表中的节点</h2>
+<pre>function (node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
+}</pre>
+<ol class="results">
+  
+</ol>
 <h2>寻找数组的中心索引</h2>
 <pre>function pivotIndex(nums) {
   if (nums.length === 0) return -1;
@@ -891,6 +899,44 @@
 <li class="pass">输入：<code>[
   9
 ]</code><br />预期结果：<code>[1,0]</code><br />输出：<code>[1,0]</code></li>
+</ol>
+<h2>删除链表的倒数第N个节点</h2>
+<pre>function (head, n) {
+  // 一趟遍历
+  // const dummyNode = new ListNode(-1, head);
+  // let p = dummyNode;
+  // while (p.next !== null) {
+  //     let nthNode = p;
+  //     for (let i = 0; i < n; i++) {
+  //         nthNode = nthNode.next
+  //     }
+  //     if (nthNode.next === null) {
+  //         const toRemove = p.next;
+  //         p.next = toRemove.next;
+  //         toRemove.next = null;
+  //         return dummyNode.next;
+  //     }
+  //     p = p.next;
+  // }
+
+  // 堆栈
+  const dummyNode = new ListNode(-1, head);
+  let p = dummyNode;
+  const stack = [];
+  while (p) {
+    stack.push(p);
+    p = p.next;
+  }
+  let toRemove;
+  for (let i = 0; i < n; i++) {
+    toRemove = stack.pop();
+  }
+  stack.pop().next = toRemove.next;
+  toRemove.next = null;
+  return dummyNode.next;
+}</pre>
+<ol class="results">
+  
 </ol>
 <h2>整数反转</h2>
 <pre>function (x) {

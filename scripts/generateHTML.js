@@ -26,6 +26,28 @@ const validators = {
   equal: function (a, b) {
     return a === b;
   },
+  /**
+   *
+   *
+   * @param {*} a
+   * @param {*} b
+   * @return {*}
+   */
+  equalLinkList: function (a, b) {
+    let aVal = "",
+      bVal = "";
+    let pa = a.next;
+    while (pa !== null) {
+      aVal += pa.val.toString();
+      pa = pa.next;
+    }
+    let pb = b.next;
+    while (pb !== null) {
+      bVal += pb.val.toString();
+      pb = pb.next;
+    }
+    return aVal === bVal;
+  },
 };
 
 function generateHTML(problemPath, problemName) {
@@ -44,7 +66,6 @@ function generateHTML(problemPath, problemName) {
   let htmlContent = template;
   htmlContent = htmlContent.replace(/{{\s*name\s*}}/, meta.name);
   htmlContent = htmlContent.replace(/{{\s*code\s*}}/, fn.toString());
-
   htmlContent = htmlContent.replace(
     /{{\s*inputs\s*}}/,
     meta.useCases
