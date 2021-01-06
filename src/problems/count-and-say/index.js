@@ -12,9 +12,8 @@ var countAndSay = function (n) {
 
 function desc(s) {
   // 双指针
+  let res = "";
   let i = 0;
-  console.log("s", s);
-  const groups = [];
   while (i < s.length) {
     let j = 1;
     let group = s.charAt(i);
@@ -22,10 +21,9 @@ function desc(s) {
       group += s.charAt(i + j);
       j++;
     }
-    groups.push(group);
+    res += `${group.length}${group.charAt(0)}`;
     i += j;
   }
-  console.log("groups", groups);
-  return groups.map((g) => `${g.length}${g.charAt(0)}`).join("");
+  return res;
 }
 module.exports = countAndSay;
