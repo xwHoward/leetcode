@@ -973,6 +973,41 @@
 <li class="pass">输入：<code>-123</code><br />预期结果：<code>-321</code><br />输出：<code>-321</code></li>
 <li class="pass">输入：<code>120</code><br />预期结果：<code>21</code><br />输出：<code>21</code></li>
 </ol>
+<h2>反转链表</h2>
+<pre>function (head) {
+  // 堆栈
+  //   if (head === null) {
+  //     return head;
+  //   }
+  //   let p = head;
+  //   const stack = [];
+  //   while (p) {
+  //     stack.push(p);
+  //     p = p.next;
+  //   }
+  //   let curr = stack.pop();
+  //   const newHead = curr;
+  //   while (stack.length) {
+  //     const next = stack.pop();
+  //     curr.next = next;
+  //     curr = next;
+  //   }
+  //   curr.next = null;
+  //   return newHead;
+
+  // 递归
+  if (head === null || head.next === null) {
+    //   结束递归，返回新链表末尾元素
+    return head;
+  }
+  const next = reverseList(head.next);
+  head.next.next = head;
+  head.next = null;
+  return next;
+}</pre>
+<ol class="results">
+  
+</ol>
 <h2>反转字符串</h2>
 <pre>function (s) {
   for (let i = 0; i < s.length / 2; i++) {

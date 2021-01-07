@@ -31,14 +31,14 @@ var reverseList = function (head) {
   //   return newHead;
 
   // 递归
-  if (head.next === null) {
+  if (head === null || head.next === null) {
     //   结束递归，返回新链表末尾元素
     return head;
   }
-  const next = head.next;
-  const tail = reverseList(next);
-  tail.next = head;
-  return head;
+  const next = reverseList(head.next);
+  head.next.next = head;
+  head.next = null;
+  return next;
 };
 
 module.exports = reverseList;
